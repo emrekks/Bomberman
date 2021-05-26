@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     // Local rigidbody variable to hold a reference to the attached Rigidbody2D component
-    new Rigidbody2D rigidbody_;
-
+    private Rigidbody2D rb;
+    private PhotonView _photonView;
     public float movementSpeed = 1000.0f;
 
+    public Animator anim;
+    private float MoveSpeed = 5f;
+
     public GameObject bomb;
+    private Vector2 movement;
 
     private float timer;
     private bool timerBool = false;
@@ -18,20 +24,32 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         // Setup Rigidbody for frictionless top down movement and dynamic collision
-        rigidbody_ = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
 
-        rigidbody_.isKinematic = false;
-        rigidbody_.angularDrag = 0.0f;
-        rigidbody_.gravityScale = 0.0f;
+    }
+
+    private void Start()
+    {
+        _photonView = GetComponent<PhotonView>();
+
+      
+        if (!_photonView.IsMine)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
     }
 
     void Update()
     {
-        // Handle user input
-        Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+        {
+            return;
+        }
 
-        Move(targetVelocity);
-        
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+
+
         if (Input.GetKeyDown(KeyCode.Space) && timerBool == false)
         {
             PlacingBomb();
@@ -48,18 +66,20 @@ public class PlayerController : MonoBehaviour
                 timer = 0f;
             }
         }
-        
-        
+        anim.SetFloat("Horizontal", movement.x);
+        anim.SetFloat("Vertical", movement.y);
+        anim.SetFloat("Speed", movement.sqrMagnitude);
     }
 
-    void Move(Vector2 targetVelocity)
+    private void FixedUpdate()
     {
-        // Set rigidbody velocity
-        rigidbody_.velocity = (targetVelocity * movementSpeed) * Time.deltaTime; // Multiply the target by deltaTime to make movement speed consistent across different framerates
+        rb.MovePosition(rb.position + movement * MoveSpeed * Time.fixedDeltaTime);
     }
+
+
 
     void PlacingBomb()
     {
-        Instantiate(bomb, transform.position, transform.rotation);
+        PhotonNetwork.Instantiate("Bomb", transform.position, transform.rotation);
     }
 }

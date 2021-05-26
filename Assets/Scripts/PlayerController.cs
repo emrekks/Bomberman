@@ -10,6 +10,11 @@ public class PlayerController : MonoBehaviour
 
     public float movementSpeed = 1000.0f;
 
+    public GameObject bomb;
+
+    private float timer;
+    private bool timerBool = false;
+
     void Awake()
     {
         // Setup Rigidbody for frictionless top down movement and dynamic collision
@@ -26,11 +31,35 @@ public class PlayerController : MonoBehaviour
         Vector2 targetVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         Move(targetVelocity);
+        
+        if (Input.GetKeyDown(KeyCode.Space) && timerBool == false)
+        {
+            PlacingBomb();
+            timerBool = true;
+        }
+
+        if (timerBool)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= 3f)
+            {
+                timerBool = false;
+                timer = 0f;
+            }
+        }
+        
+        
     }
 
     void Move(Vector2 targetVelocity)
     {
         // Set rigidbody velocity
         rigidbody_.velocity = (targetVelocity * movementSpeed) * Time.deltaTime; // Multiply the target by deltaTime to make movement speed consistent across different framerates
+    }
+
+    void PlacingBomb()
+    {
+        Instantiate(bomb, transform.position, transform.rotation);
     }
 }

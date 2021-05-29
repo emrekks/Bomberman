@@ -12,14 +12,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private PhotonView _photonView;
     public float movementSpeed = 1000.0f;
 
-    public Animator anim;
+    //public Animator anim;
     private float MoveSpeed = 5f;
+    [SerializeField] public int health = 2;
 
     public GameObject bomb;
     private Vector2 movement;
 
     private float timer;
     private bool timerBool = false;
+
+
 
     void Awake()
     {
@@ -66,9 +69,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 timer = 0f;
             }
         }
-        anim.SetFloat("Horizontal", movement.x);
-        anim.SetFloat("Vertical", movement.y);
-        anim.SetFloat("Speed", movement.sqrMagnitude);
+
+
+
+        //anim.SetFloat("Horizontal", movement.x);
+        //anim.SetFloat("Vertical", movement.y);
+        //anim.SetFloat("Speed", movement.sqrMagnitude);
     }
 
     private void FixedUpdate()

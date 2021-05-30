@@ -24,12 +24,6 @@ public class Chatbox : MonoBehaviour
     public void ShowInChat(string message)
     {
         ChatBox.text += $"\n {pw.ViewID}: {message}";
-
-        //Invoke("DeleteMessage", 4f);
     }
 
-    void DeleteMessage()
-    {
-        ChatBox.text = null;
-    }
 }

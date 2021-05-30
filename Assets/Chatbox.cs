@@ -7,11 +7,18 @@ using Photon.Realtime;
 
 public class Chatbox : MonoBehaviour
 {
+
     public Text InputField;
     public Text ChatBox;
     public PhotonView pw;
     [SerializeField] string message;
-    // Start is called before the first frame update
+
+    public void Start()
+    {
+        pw = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<PhotonView>();
+        InputField = GameObject.Find("WriteChat").GetComponent<Text>();
+        ChatBox = GameObject.Find("ChatText").GetComponent<Text>();
+    }
     public void SendMessageToChat()
     {
         message = InputField.text;

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7928993962274174470}
   - component: {fileID: -3911057096543212382}
   - component: {fileID: -7220033864859227975}
+  - component: {fileID: 2739123536776280814}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -34,8 +35,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8570962557022328544}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -206,88 +206,19 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!1001 &3965939796494707955
-PrefabInstance:
+--- !u!114 &2739123536776280814
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 7196609541655118376}
-    m_Modifications:
-    - target: {fileID: 4754662331613507326, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662331613507326, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212689, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_Name
-      value: ChatManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 06805e600f1e5c449b00801a9f84619c, type: 3}
---- !u!4 &8570962557022328544 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4754662333125212691, guid: 06805e600f1e5c449b00801a9f84619c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3965939796494707955}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424911765435348908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c196108a7317d0479988bb221ab46b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputField: {fileID: 0}
+  ChatBox: {fileID: 0}
+  pw: {fileID: 0}
+  message: 

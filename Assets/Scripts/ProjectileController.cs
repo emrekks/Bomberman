@@ -32,26 +32,26 @@ public class ProjectileController : MonoBehaviour
             {
 
                 if (Mathf.Abs(Vector3.Distance(transform.position, players[i].transform.position)) <= radius)
-                {
-                    pc_ = players[i].GetComponent<PlayerController>();
-                    if (pc_.health >= 1)
-                    {
-                        pc_.health = -1;
-                    }
-                    else if (pc_.health <= 0)
-                    {
-                        players[i].SetActive(false);
+                {
+                    pc_ = players[i].GetComponent<PlayerController>();
+                    if (pc_.health >= 1)
+                    {
+                        pc_.health = -1;
+                    }
+                    else if (pc_.health <= 0)
+                    {
+                        players[i].SetActive(false);
                     }
                 }
-            }
-
+            }
+
             for (int i = 0; i < Breakablewall.Length; i++)
             {
                 if (Mathf.Abs(Vector3.Distance(transform.position, Breakablewall[i].transform.position)) <= radius)
                 {
                     Breakablewall[i].SetActive(false);
                 }
-            }
+            }
             Destroy(gameObject);
         }
     }

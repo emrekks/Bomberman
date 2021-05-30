@@ -13,8 +13,13 @@ public class Chatbox : MonoBehaviour
     public PhotonView pw;
     [SerializeField] string message;
 
+    private MainMenu _mainMenu;
+
+    
+
     public void Start()
     {
+        _mainMenu = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainMenu>();
         pw = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<PhotonView>();
         InputField = GameObject.Find("WriteChat").GetComponent<Text>();
         ChatBox = GameObject.Find("ChatText").GetComponent<Text>();
@@ -24,13 +29,15 @@ public class Chatbox : MonoBehaviour
         message = InputField.text;
         pw.RPC("ShowInChat", RpcTarget.All, message);
         InputField.text = string.Empty;
-        
+
     }
 
     [PunRPC]
     public void ShowInChat(string message)
     {
-        ChatBox.text += $"\n {pw.ViewID}: {message}";
+        ChatBox.text += $"\n{_mainMenu.playerName}: {message}";
+        //ChatBox.text += $"\n {pw.ViewID}: {message}";
+        
     }
 
 }

@@ -27,17 +27,16 @@ public class Chatbox : MonoBehaviour
     public void SendMessageToChat()
     {
         message = InputField.text;
-        pw.RPC("ShowInChat", RpcTarget.All, message);
+        pw.RPC("ShowInChat", RpcTarget.AllBuffered, message,_mainMenu.playerName);
         InputField.text = string.Empty;
 
     }
 
     [PunRPC]
-    public void ShowInChat(string message)
+    public void ShowInChat(string message, string playerName)
     {
-        ChatBox.text += $"\n{_mainMenu.playerName}: {message}";
+        ChatBox.text += $"\n{playerName}: {message}";
         //ChatBox.text += $"\n {pw.ViewID}: {message}";
-        
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private float timer;
     private bool timerBool = false;
+
+    public bool isReady = false;
 
 
 
@@ -87,5 +90,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void PlacingBomb()
     {
         PhotonNetwork.Instantiate("Bomb", transform.position, transform.rotation);
+    }
+
+    public void Ready()
+    {
+        WaitingScene.instance.Invoke("GameWait",1);
+        WaitingScene.instance.unready.SetActive(true);
+        WaitingScene.instance.ready.SetActive(false);
+        WaitingScene.instance._readyPlayerCount += 1;
+        isReady = true;
+        
+    }
+
+    public void Unready()
+    {
+        WaitingScene.instance.Invoke("GameWait",1);
+        WaitingScene.instance.unready.SetActive(false);
+        WaitingScene.instance.ready.SetActive(true);
+        WaitingScene.instance._readyPlayerCount -= 1;
+        isReady = false;
     }
 }

@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/NameScreen.unity
     guid: c7304f5e0f9cb39409a9694306daf398
   - enabled: 1
-    path: Assets/Scenes/Deneme.unity
+    path: Assets/Scenes/WaitingRoom.unity
     guid: b5149c7121875e24cb4bb1b121eccd4b
   m_configObjects: {}

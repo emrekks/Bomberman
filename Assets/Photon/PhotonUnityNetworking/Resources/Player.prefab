@@ -148,6 +148,7 @@ MonoBehaviour:
   movementSpeed: 1000
   health: 2
   bomb: {fileID: 424911765435348908, guid: 98ed451b4d08d7d48a08fec1d0f5e1ef, type: 3}
+  isReady: 1
 --- !u!95 &7928993962274174470
 Animator:
   serializedVersion: 3

@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private PhotonView _photonView;
     public float movementSpeed = 1000.0f;
 
+    private Animator anim;
     //public Animator anim;
     private float MoveSpeed = 5f;
     [SerializeField] public int health = 2;
@@ -37,9 +38,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void Start()
     {
         _photonView = GetComponent<PhotonView>();
-
+        anim = GetComponent<Animator>();
       
-        if (!_photonView.IsMine)
+        if (_photonView.IsMine)
         {
             GetComponent<Renderer>().material.color = Color.red;
         }
@@ -52,8 +53,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
             return;
         }
 
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if (movement.y == 0)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+        }
+
+        if (movement.x == 0)
+        {
+            movement.y = Input.GetAxisRaw("Vertical");
+        }
+
+
+        anim.SetFloat("horizontal", movement.x);
+        anim.SetFloat("vertical", movement.y);
 
 
         if (Input.GetKeyDown(KeyCode.Space) && timerBool == false)

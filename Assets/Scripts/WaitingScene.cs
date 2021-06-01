@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WaitingScene : MonoBehaviourPunCallbacks
@@ -26,7 +27,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     public Text readyDisplayText;
     public Text numbersText;
     public GameObject numbers;
-
+    public int randomScene;
     public bool readyToPlay = false;
 
     private PhotonView pv;
@@ -45,6 +46,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     {
         pv = GetComponent<PhotonView>();
         GameWait();
+        randomScene = UnityEngine.Random.Range(0, 2);
     }
 
     // Update is called once per frame
@@ -73,6 +75,14 @@ public class WaitingScene : MonoBehaviourPunCallbacks
                     numbersText.text = "GO";
                     readyToPlay = false;
                     //RANDOM SCENE SEÇMECE
+                    if(randomScene == 0)
+                    {
+                        SceneManager.LoadScene("Scene1");
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene("Scene2");
+                    }
                     //UILARIN HEPSININ KAPANMASI LAZIM CHAT SAYILAR VS..
                 }
             }

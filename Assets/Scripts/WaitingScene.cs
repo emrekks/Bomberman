@@ -73,6 +73,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
                     numbersText.text = "GO";
                     readyToPlay = false;
                     //RANDOM SCENE SEÇMECE
+                    //UILARIN HEPSININ KAPANMASI LAZIM CHAT SAYILAR VS..
                 }
             }
         }

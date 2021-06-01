@@ -962,6 +962,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SendMessageToChat
       objectReference: {fileID: 0}
+    - target: {fileID: 1370861692482519100, guid: a022e1d8e60813a4780a1d4f39932d93,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.2901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370861692482519100, guid: a022e1d8e60813a4780a1d4f39932d93,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.1509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370861692482519100, guid: a022e1d8e60813a4780a1d4f39932d93,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.1509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370861692482519100, guid: a022e1d8e60813a4780a1d4f39932d93,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.1509434
+      objectReference: {fileID: 0}
     - target: {fileID: 1370861692750986880, guid: a022e1d8e60813a4780a1d4f39932d93,
         type: 3}
       propertyPath: m_Name

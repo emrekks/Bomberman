@@ -6,11 +6,11 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    
     public Transform[] spawnPoints;
-
     Player[] allPlayers;
     public int myNumberInRoom;
-    // Start is called before the first frame update
+
     void Start()
     {
         allPlayers = PhotonNetwork.PlayerList;

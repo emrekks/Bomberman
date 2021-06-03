@@ -98,14 +98,15 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.Disconnect();
         while (PhotonNetwork.IsConnected)
-            yield return null;
-        Application.LoadLevel(level);
+        yield return null;
+        PhotonNetwork.LoadLevel(level);
     }
 
     void GameWait()
     {
         Debug.Log("GameWait");
-        
+
+
         if (_readyPlayerCount == roomSize)
         {
             readyToPlay = true;
@@ -148,5 +149,17 @@ public class WaitingScene : MonoBehaviourPunCallbacks
 
         PhotonNetwork.CurrentRoom.IsOpen = false;
         numbers.SetActive(true);
+    }
+
+
+    public void CountReadyPlayer()
+    {
+        pv.RPC("CountReadyPlayerRpc", RpcTarget.AllBuffered, _readyPlayerCount);
+    }
+
+    [PunRPC]
+    public void CountReadyPlayerRpc(int count)
+    {
+        _readyPlayerCount = count;
     }
 }

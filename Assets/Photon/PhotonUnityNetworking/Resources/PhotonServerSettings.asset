@@ -39,6 +39,11 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - ShowInChat
+  - Ready
+  - Unready
+  - UnreadyRPC
+  - ReadyRPC
+  - CountReadyPlayerRpc
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

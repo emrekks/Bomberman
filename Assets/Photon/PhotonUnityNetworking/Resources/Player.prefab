@@ -234,3 +234,4 @@ MonoBehaviour:
   health: 2
   bomb: {fileID: 424911765435348908, guid: fcf77c10e330345498eca3a8696a1a66, type: 3}
   isReady: 0
+  players: []

@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
 
-    private float radius = 0.8f;
+    private float radius = 1f;
 
     private float timer;
 
@@ -15,6 +15,7 @@ public class ProjectileController : MonoBehaviour
     private PlayerController pc_;
     private Animator anim;
     private bool once = true;
+
 
     // Start is called before the first frame update
     void Start()

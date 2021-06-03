@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -27,15 +27,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isReady = false;
 
 
+    Scene m_Scene;
+    private string activeScene = "Scene2";
+    public GameObject[] players;
+
+
     void Awake()
     {
-        // Setup Rigidbody for frictionless top down movement and dynamic collision
         rb = GetComponent<Rigidbody2D>();
-
     }
 
     private void Start()
     {
+        players = GameObject.FindGameObjectsWithTag("Player");
         _photonView = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
 
@@ -51,6 +55,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             return;
         }
+
+        m_Scene = SceneManager.GetActiveScene();
+
+
+        if (m_Scene.name == activeScene || players.Length > 1)
+        {
+            if (players.Length <= 1)
+            {
+                SwitchLevel("WaitingScene");
+            }
+        }
+
+        Debug.Log(players.Length);
 
         if (movement.y == 0)
         {
@@ -103,14 +120,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate("Bomb", transform.position, transform.rotation);
     }
 
+
     public void Ready()
     {
         WaitingScene.instance.Invoke("GameWait",1);
         WaitingScene.instance.unready.SetActive(true);
         WaitingScene.instance.ready.SetActive(false);
         WaitingScene.instance._readyPlayerCount += 1;
+        WaitingScene.instance.CountReadyPlayer();
         isReady = true;
-        
     }
 
     public void Unready()
@@ -119,6 +137,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
         WaitingScene.instance.unready.SetActive(false);
         WaitingScene.instance.ready.SetActive(true);
         WaitingScene.instance._readyPlayerCount -= 1;
+        WaitingScene.instance.CountReadyPlayer();
         isReady = false;
     }
+
+    public void SwitchLevel(string level)
+    {
+        StartCoroutine(DoSwitchLevel(level));
+    }
+
+    IEnumerator DoSwitchLevel(string level)
+    {
+        PhotonNetwork.Disconnect();
+        while (PhotonNetwork.IsConnected)
+        yield return null;
+        Application.LoadLevel(level);
+    }
+
+
 }

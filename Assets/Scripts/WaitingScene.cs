@@ -77,23 +77,29 @@ public class WaitingScene : MonoBehaviourPunCallbacks
                     //RANDOM SCENE SEÇMECE
                     if(randomScene == 0)
                     {
-                        if(PhotonNetwork.IsMasterClient){
-
-                            PhotonNetwork.LoadLevel("Scene1");
-                        }
+                        SwitchLevel("Scene2");
                     }
                     else
                     {
-                        if (PhotonNetwork.IsMasterClient)
-                        {
-
-                            PhotonNetwork.LoadLevel("Scene1");
-                        }
+                        SwitchLevel("Scene2");
                     }
                     //UILARIN HEPSININ KAPANMASI LAZIM CHAT SAYILAR VS..
                 }
             }
         }
+    }
+
+    public void SwitchLevel(string level)
+    {
+        StartCoroutine(DoSwitchLevel(level));
+    }
+
+    IEnumerator DoSwitchLevel(string level)
+    {
+        PhotonNetwork.Disconnect();
+        while (PhotonNetwork.IsConnected)
+            yield return null;
+        Application.LoadLevel(level);
     }
 
     void GameWait()

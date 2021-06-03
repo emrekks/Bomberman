@@ -29,6 +29,7 @@ public class ProjectileController : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+
         if (timer >= 3f && timer <=4)
         {
             for (int i = 0; i < players.Length; i++)
@@ -69,7 +70,7 @@ public class ProjectileController : MonoBehaviour
 
     private IEnumerator Explosion(GameObject a)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         anim.SetBool("Explonation", false);
         Destroy(gameObject);
     }

@@ -77,11 +77,18 @@ public class WaitingScene : MonoBehaviourPunCallbacks
                     //RANDOM SCENE SEÇMECE
                     if(randomScene == 0)
                     {
-                        SceneManager.LoadScene("Scene1");
+                        if(PhotonNetwork.IsMasterClient){
+
+                            PhotonNetwork.LoadLevel("Scene1");
+                        }
                     }
                     else
                     {
-                        SceneManager.LoadScene("Scene2");
+                        if (PhotonNetwork.IsMasterClient)
+                        {
+
+                            PhotonNetwork.LoadLevel("Scene1");
+                        }
                     }
                     //UILARIN HEPSININ KAPANMASI LAZIM CHAT SAYILAR VS..
                 }

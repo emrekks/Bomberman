@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
 
-    private float radius = 2f;
+    private float radius = 0.8f;
 
     private float timer;
 

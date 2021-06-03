@@ -134,7 +134,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players: []
   Breakablewall: []
-  reduce: 0
 --- !u!114 &-8950300602243353975
 MonoBehaviour:
   m_ObjectHideFlags: 0

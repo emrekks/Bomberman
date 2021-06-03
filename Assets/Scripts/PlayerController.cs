@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isReady = false;
 
 
-
     void Awake()
     {
         // Setup Rigidbody for frictionless top down movement and dynamic collision
@@ -39,7 +38,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         _photonView = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
-      
+
         if (_photonView.IsMine)
         {
             GetComponent<Renderer>().material.color = Color.red;

@@ -6,9 +6,22 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public Transform[] spawnPoints;
+
+    Player[] allPlayers;
+    public int myNumberInRoom;
     // Start is called before the first frame update
     void Start()
     {
+        allPlayers = PhotonNetwork.PlayerList;
+        foreach (Player p in allPlayers)
+        {
+            if (p != PhotonNetwork.LocalPlayer)
+            {
+                myNumberInRoom++;
+            }
+        }
+
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -32,7 +45,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("join");
-        PhotonNetwork.Instantiate("Player", new Vector3(0, 0, 0), Quaternion.identity, 0, null);
+        PhotonNetwork.Instantiate("Player", spawnPoints[myNumberInRoom].position, Quaternion.identity, 0, null);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

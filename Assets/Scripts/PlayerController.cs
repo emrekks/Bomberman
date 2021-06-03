@@ -27,11 +27,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isReady = false;
 
 
-    Scene m_Scene;
-    private string activeScene = "Scene2";
-    public GameObject[] players;
-
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -39,7 +34,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
         _photonView = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
 
@@ -56,18 +50,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             return;
         }
 
-        m_Scene = SceneManager.GetActiveScene();
-
-
-        if (m_Scene.name == activeScene || players.Length > 1)
-        {
-            if (players.Length <= 1)
-            {
-                SwitchLevel("WaitingScene");
-            }
-        }
-
-        Debug.Log(players.Length);
 
         if (movement.y == 0)
         {

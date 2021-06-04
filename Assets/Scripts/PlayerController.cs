@@ -83,11 +83,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
 
-
-
-        //anim.SetFloat("Horizontal", movement.x);
-        //anim.SetFloat("Vertical", movement.y);
-        //anim.SetFloat("Speed", movement.sqrMagnitude);
     }
 
     private void FixedUpdate()
@@ -122,19 +117,5 @@ public class PlayerController : MonoBehaviourPunCallbacks
         WaitingScene.instance.CountReadyPlayer();
         isReady = false;
     }
-
-    public void SwitchLevel(string level)
-    {
-        StartCoroutine(DoSwitchLevel(level));
-    }
-
-    IEnumerator DoSwitchLevel(string level)
-    {
-        PhotonNetwork.Disconnect();
-        while (PhotonNetwork.IsConnected)
-        yield return null;
-        Application.LoadLevel(level);
-    }
-
 
 }

@@ -44,6 +44,12 @@ MonoBehaviour:
   - UnreadyRPC
   - ReadyRPC
   - CountReadyPlayerRpc
+  - CountPlayerRpc
+  - Numbers
+  - NumbersACtive
+  - NumbersActive
+  - CountNumber
+  - CountNumbers
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

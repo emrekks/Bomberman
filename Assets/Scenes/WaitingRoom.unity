@@ -931,7 +931,7 @@ MonoBehaviour:
   - {fileID: 576014959}
   - {fileID: 1318393205}
   - {fileID: 371270772}
-  myNumberInRoom: 0
+  inWaitingRoomPlayerCount: 0
 --- !u!1 &1179222614
 GameObject:
   m_ObjectHideFlags: 0

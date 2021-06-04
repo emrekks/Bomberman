@@ -27,6 +27,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     public Text readyDisplayText;
     public Text numbersText;
     public GameObject numbers;
+    public bool numbersbool = true;
     public int randomScene;
     public bool readyToPlay = false;
 
@@ -68,6 +69,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
             {
                 numbersText.fontSize = Convert.ToInt32(Mathf.Lerp(120f, 150f, 3f));
                 numberCount -= 1;
+                pv.RPC("CountNumbers", RpcTarget.All, numberCount);
                 timer = 0f;
 
                 if (numberCount <= 0)
@@ -148,7 +150,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        numbers.SetActive(true);
+        pv.RPC("NumbersActive", RpcTarget.AllBuffered, numbersbool);
     }
 
 
@@ -161,5 +163,20 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     public void CountReadyPlayerRpc(int count)
     {
         _readyPlayerCount = count;
+    }
+
+    [PunRPC]
+    public void NumbersActive(bool a)
+    {
+        if (a)
+        {
+            numbers.SetActive(true);
+        }
+    }
+
+    [PunRPC]
+    void CountNumbers(int number)
+    {
+      numberCount = number;
     }
 }

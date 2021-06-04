@@ -6,22 +6,14 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    
     public Transform[] spawnPoints;
-    Player[] allPlayers;
-    public int myNumberInRoom;
-
+    public int inWaitingRoomPlayerCount;
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
-        allPlayers = PhotonNetwork.PlayerList;
-        foreach (Player p in allPlayers)
-        {
-            if (p != PhotonNetwork.LocalPlayer)
-            {
-                myNumberInRoom++;
-            }
-        }
-
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -44,12 +36,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        if (PhotonNetwork.CountOfPlayers == 1)
+        {
+            inWaitingRoomPlayerCount = 0;
+        }
+        if (PhotonNetwork.CountOfPlayers == 2)
+        {
+            inWaitingRoomPlayerCount = 1;
+        }
+        if (PhotonNetwork.CountOfPlayers == 3)
+        {
+            inWaitingRoomPlayerCount = 3;
+        }
+        if (PhotonNetwork.CountOfPlayers == 4)
+        {
+            inWaitingRoomPlayerCount = 4;
+        }
         Debug.Log("join");
-        PhotonNetwork.Instantiate("Player", spawnPoints[myNumberInRoom].position, Quaternion.identity, 0, null);
+        PhotonNetwork.Instantiate("Player", spawnPoints[inWaitingRoomPlayerCount].position, Quaternion.identity, 0, null);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log("A player left");
     }
+
 }

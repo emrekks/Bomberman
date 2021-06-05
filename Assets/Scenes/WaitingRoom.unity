@@ -572,7 +572,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220298465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1501,7 +1501,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 2
+  sceneViewId: 900
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!4 &1644387490 stripped
@@ -1854,7 +1854,7 @@ PrefabInstance:
     - target: {fileID: 1370861691809296995, guid: a022e1d8e60813a4780a1d4f39932d93,
         type: 3}
       propertyPath: sceneViewId
-      value: 1
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 1370861691809297005, guid: a022e1d8e60813a4780a1d4f39932d93,
         type: 3}
@@ -2009,7 +2009,7 @@ PrefabInstance:
     - target: {fileID: 1370861692750986887, guid: a022e1d8e60813a4780a1d4f39932d93,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 319.654
+      value: 175.15802
       objectReference: {fileID: 0}
     - target: {fileID: 1370861692856414096, guid: a022e1d8e60813a4780a1d4f39932d93,
         type: 3}
@@ -2066,7 +2066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160b72b4c789aac4ea6538ecba06d03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayStart: 0
+  delayStart: 1
   maxPlayers: 4
   MenuScene: 0
   multiplayerScene: 3

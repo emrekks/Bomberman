@@ -98,7 +98,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
 
     public void CountReadyPlayer()
     {
-        pv.RPC("CountReadyPlayerRpc", RpcTarget.AllBuffered, _readyPlayerCount);
+        pv.RPC("CountReadyPlayerRpc", RpcTarget.All, _readyPlayerCount);
     }
 
     [PunRPC]

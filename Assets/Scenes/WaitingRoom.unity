@@ -1991,10 +1991,25 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.1509434
       objectReference: {fileID: 0}
+    - target: {fileID: 1370861692482519102, guid: a022e1d8e60813a4780a1d4f39932d93,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -305.0918
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370861692482519102, guid: a022e1d8e60813a4780a1d4f39932d93,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -91.118
+      objectReference: {fileID: 0}
     - target: {fileID: 1370861692750986880, guid: a022e1d8e60813a4780a1d4f39932d93,
         type: 3}
       propertyPath: m_Name
       value: ChatText
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370861692750986887, guid: a022e1d8e60813a4780a1d4f39932d93,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 319.654
       objectReference: {fileID: 0}
     - target: {fileID: 1370861692856414096, guid: a022e1d8e60813a4780a1d4f39932d93,
         type: 3}
@@ -2009,6 +2024,11 @@ PrefabInstance:
     - target: {fileID: 1370861693518784128, guid: a022e1d8e60813a4780a1d4f39932d93,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370861693518784128, guid: a022e1d8e60813a4780a1d4f39932d93,
+        type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -2109,7 +2129,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 3
+  sceneViewId: 999
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &8801204954201044418

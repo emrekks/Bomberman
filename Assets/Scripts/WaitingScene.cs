@@ -74,7 +74,6 @@ public class WaitingScene : MonoBehaviourPunCallbacks
 
     void GameWait()
     {
-        Debug.Log("GameWait");
 
         if (_readyPlayerCount == PhotonRoom.room.playersInRoom && PhotonRoom.room.playersInRoom != 0)
         {

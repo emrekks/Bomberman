@@ -100,7 +100,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 }
             }
         }
-        Debug.Log(playersInGame);
     }
     public override void OnJoinedRoom()
     {

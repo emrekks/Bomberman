@@ -39,7 +39,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     private GameObject[] players;
 
     private float timer;
-    private int numberCount = 3;
+    public int numberCount = 3;
     
     
     // Start is called before the first frame update
@@ -72,21 +72,21 @@ public class WaitingScene : MonoBehaviourPunCallbacks
                 pv.RPC("CountNumbers", RpcTarget.All, numberCount);
                 timer = 0f;
 
-                if (numberCount <= 0)
-                {
-                    numbersText.text = "GO";
-                    readyToPlay = false;
-                    //RANDOM SCENE SEÇMECE
-                    if(randomScene == 0)
-                    {
-                        SwitchLevel("Scene2");
-                    }
-                    else
-                    {
-                        SwitchLevel("Scene2");
-                    }
-                    //UILARIN HEPSININ KAPANMASI LAZIM CHAT SAYILAR VS..
-                }
+                //if (numberCount <= 0)
+                //{
+                //    numbersText.text = "GO";
+                //    readyToPlay = false;
+                //    //RANDOM SCENE SEÇMECE
+                //    if(randomScene == 0)
+                //    {
+                //        SwitchLevel("Scene2");
+                //    }
+                //    else
+                //    {
+                //        SwitchLevel("Scene2");
+                //    }
+                //    //UILARIN HEPSININ KAPANMASI LAZIM CHAT SAYILAR VS..
+                //}
             }
         }
     }

@@ -8,10 +8,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public Transform[] spawnPoints;
     public int inWaitingRoomPlayerCount;
-    private void Awake()
-    {
-        
-    }
+
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -21,6 +18,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("connected master servere");
         PhotonNetwork.JoinLobby();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public override void OnJoinedLobby()

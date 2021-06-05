@@ -44,11 +44,7 @@ public class MainMenu : MonoBehaviour
         {
             playerName = inputField.text;
         }
-        
-        
-        
-        
-        
+             
     }
 
     public void OnClick()

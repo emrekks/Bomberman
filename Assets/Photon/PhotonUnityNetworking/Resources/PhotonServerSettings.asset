@@ -52,6 +52,7 @@ MonoBehaviour:
   - CountNumbers
   - RPC_CreatePlayer
   - RPC_LoadedGameScene
+  - ReadyToPlayRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

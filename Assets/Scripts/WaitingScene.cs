@@ -21,9 +21,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
 
     #endregion
 
-
     public int _readyPlayerCount;
-    private int roomSize = 4;
     public Text readyDisplayText;
     public Text numbersText;
     public GameObject numbers;
@@ -36,13 +34,13 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     public GameObject ready;
     public GameObject unready;
 
-    private GameObject[] players;
 
     private float timer;
     public int numberCount = 3;
+    public bool ReadyToCount = false;
+    public bool GameStarting = false;
     
-    
-    // Start is called before the first frame update
+
     void Start()
     {
         pv = GetComponent<PhotonView>();
@@ -53,63 +51,32 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
-        roomSize = players.Length;
-        readyDisplayText.text = _readyPlayerCount + " / " + roomSize;
-        WaitingToReady();
+        readyDisplayText.text = _readyPlayerCount + " / " + PhotonRoom.room.playersInRoom;
 
-        if (numbers.activeSelf && readyToPlay)
+        if (ReadyToCount == true)
         {
-            timer += Time.deltaTime;
-            
-            numbersText.text = Convert.ToString(numberCount);
-            
-
-            if (timer >= 1f)
+            if (numbers.activeSelf && readyToPlay)
             {
-                numbersText.fontSize = Convert.ToInt32(Mathf.Lerp(120f, 150f, 3f));
-                numberCount -= 1;
                 pv.RPC("CountNumbers", RpcTarget.All, numberCount);
-                timer = 0f;
-
-                //if (numberCount <= 0)
-                //{
-                //    numbersText.text = "GO";
-                //    readyToPlay = false;
-                //    //RANDOM SCENE SEÇMECE
-                //    if(randomScene == 0)
-                //    {
-                //        SwitchLevel("Scene2");
-                //    }
-                //    else
-                //    {
-                //        SwitchLevel("Scene2");
-                //    }
-                //    //UILARIN HEPSININ KAPANMASI LAZIM CHAT SAYILAR VS..
-                //}
             }
         }
     }
 
-    public void SwitchLevel(string level)
+    public void CountTrigger()
     {
-        StartCoroutine(DoSwitchLevel(level));
+        GameWait();
+        pv.RPC("NumbersActive", RpcTarget.All, true);
+        ReadyToCount = true;
     }
 
-    IEnumerator DoSwitchLevel(string level)
-    {
-        PhotonNetwork.Disconnect();
-        while (PhotonNetwork.IsConnected)
-        yield return null;
-        PhotonNetwork.LoadLevel(level);
-    }
+
+
 
     void GameWait()
     {
         Debug.Log("GameWait");
 
-
-        if (_readyPlayerCount == roomSize)
+        if (_readyPlayerCount == PhotonRoom.room.playersInRoom && PhotonRoom.room.playersInRoom != 0)
         {
             readyToPlay = true;
         }
@@ -122,35 +89,11 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         GameWait();
-
-        // if (PhotonNetwork.IsMasterClient)
-        // {
-        //     pv.RPC();
-        // }
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         GameWait();
-    }
-
-    void WaitingToReady()
-    {
-        if (readyToPlay)
-        {
-            StartGame();
-        }
-    }
-
-    void StartGame()
-    {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-
-        PhotonNetwork.CurrentRoom.IsOpen = false;
-        pv.RPC("NumbersActive", RpcTarget.AllBuffered, numbersbool);
     }
 
 
@@ -175,8 +118,27 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void CountNumbers(int number)
+    public void CountNumbers(int number)
     {
-      numberCount = number;
+        numberCount = number;
+
+        timer += Time.deltaTime;
+
+        numbersText.text = Convert.ToString(number);
+
+        if (timer >= 1f)
+        {
+            numbersText.fontSize = Convert.ToInt32(Mathf.Lerp(120f, 150f, 3f));
+            numberCount -= 1;
+            timer = 0f;
+                if (number <= 0)
+                {
+                    numbersText.text = "GO";
+                    GameStarting = true;
+                    readyToPlay = false;
+                    ReadyToCount = false;
+                    PhotonNetwork.LoadLevel("Scene1");
+                }
+        }
     }
 }

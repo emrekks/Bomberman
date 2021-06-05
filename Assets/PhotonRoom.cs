@@ -8,6 +8,9 @@ using System.IO;
 
 public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 {
+    //SpawnPoints
+    public Transform[] spawnPoints;
+
     //Room info
     public static PhotonRoom room;
     private PhotonView PV;
@@ -27,7 +30,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private float lessThanMaxPlayers;
     private float atMaxPlayer;
     private float timeToStart;
-    private bool startCheck = true;
 
     // Start is called before the first frame update
     private void Awake()
@@ -51,14 +53,14 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         base.OnEnable();
         PhotonNetwork.AddCallbackTarget(this);
-        //SceneManager.sceneLoaded += OnSceneFinishedLoading;
+        SceneManager.sceneLoaded += OnSceneFinishedLoading;
     }
 
     public override void OnDisable()
     {
         base.OnDisable();
         PhotonNetwork.RemoveCallbackTarget(this);
-        //SceneManager.sceneLoaded -= OnSceneFinishedLoading;
+        SceneManager.sceneLoaded -= OnSceneFinishedLoading;
     }
 
     void Start()
@@ -68,6 +70,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         readyToStart = false;
         lessThanMaxPlayers = startingTime;
         atMaxPlayer = 4;
+        timeToStart = startingTime;
     }
 
     void Update()
@@ -97,7 +100,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 }
             }
         }
-        Waitingroom();
+        Debug.Log(playersInGame);
     }
     public override void OnJoinedRoom()
     {
@@ -107,8 +110,10 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         playersInRoom = photonPlayers.Length;
         myNumberInRoom = playersInRoom;
         PhotonNetwork.NickName = myNumberInRoom.ToString();
+        
         if (MultiplayerSettings.multiplayerSetting.delayStart)
         {
+            Debug.Log("start");
             if (playersInRoom > 1)
             {
                 readyToCount = true;
@@ -123,37 +128,15 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 PhotonNetwork.CurrentRoom.IsOpen = false;
             }
         }
-        PV.RPC("RPC_LoadedGameScene", RpcTarget.MasterClient);
     }
-        
-    void Waitingroom()
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        if (WaitingScene.instance.numberCount <= 0 && WaitingScene.instance.readyToPlay)
-        {
-            StartGame();
-        }
+        Debug.Log("JoinRoomFail");
+        base.OnJoinRoomFailed(returnCode, message);
+        OnJoinedRoom();
     }
 
-
-
-    void StartGame()
-    {
-        while(startCheck)
-        {
-            isGameLoaded = true;
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-            if (MultiplayerSettings.multiplayerSetting.delayStart)
-            {
-                PhotonNetwork.CurrentRoom.IsOpen = false;
-            }
-            SceneManager.sceneLoaded += OnSceneFinishedLoading;
-            PhotonNetwork.LoadLevel(MultiplayerSettings.multiplayerSetting.multiplayerScene);
-            startCheck = false;
-        }
-    }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -163,6 +146,7 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         playersInRoom++;
         if (MultiplayerSettings.multiplayerSetting.delayStart)
         {
+            Debug.Log("start");
             if (playersInRoom > 1)
             {
                 readyToCount = true;
@@ -177,6 +161,30 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
                 PhotonNetwork.CurrentRoom.IsOpen = false;
             }
         }
+    }
+
+    public void readyWhenOkay()
+    {
+        if(WaitingScene.instance._readyPlayerCount == playersInRoom)
+        {
+            WaitingScene.instance.CountTrigger();
+        }
+    }
+
+    void StartGame()
+    {
+        isGameLoaded = true;
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+        if (MultiplayerSettings.multiplayerSetting.delayStart)
+        {
+            Debug.Log("start");
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+        }
+
+        PhotonNetwork.LoadLevel(MultiplayerSettings.multiplayerSetting.multiplayerScene);
     }
 
     void RestartTimer()
@@ -188,39 +196,41 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         readyToStart = false;
     }
 
-
     void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         currentScene = scene.buildIndex;
+
         if (currentScene == MultiplayerSettings.multiplayerSetting.multiplayerScene)
         {
             isGameLoaded = true;
-
             if (MultiplayerSettings.multiplayerSetting.delayStart)
             {
                 PV.RPC("RPC_LoadedGameScene", RpcTarget.MasterClient);
             }
             else
             {
+                playersInGame++;
                 RPC_CreatePlayer();
             }
         }
     }
 
     [PunRPC]
-        void RPC_LoadedGameScene()
-        {
+    void RPC_LoadedGameScene()
+    {
         playersInGame++;
         if(playersInGame == PhotonNetwork.PlayerList.Length)
         {
             PV.RPC("RPC_CreatePlayer", RpcTarget.All);
+            Debug.Log("add one more player");
         }
-        }
+    }
 
     [PunRPC]
     void RPC_CreatePlayer()
     {
-        PhotonNetwork.Instantiate("Player", new Vector3(0,0,0), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate("Player", spawnPoints[playersInGame-1].position, Quaternion.identity, 0);
+        Debug.Log("add no more player");
     }
 
 }

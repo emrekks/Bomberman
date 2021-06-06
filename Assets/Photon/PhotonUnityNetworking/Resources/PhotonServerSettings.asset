@@ -53,6 +53,10 @@ MonoBehaviour:
   - RPC_CreatePlayer
   - RPC_LoadedGameScene
   - ReadyToPlayRPC
+  - RPC_PlayerSprite
+  - RPC_WaitingPlayer
+  - RPC_Spawnpoint
+  - RPC_DeadPlayerCount
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -51,6 +51,11 @@ public class ProjectileController : MonoBehaviour
 
                     {
                         players[i].SetActive(false);
+
+                        for(int s = 0; s < 1; s++)
+                        {
+                            PhotonRoom.room.deadPlayer--;
+                        }
                     }
                 }
             }

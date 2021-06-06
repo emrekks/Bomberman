@@ -51,6 +51,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        //_readyPlayerCount = _readyPlayerCount;
         readyDisplayText.text = _readyPlayerCount + " / " + PhotonRoom.room.playersInRoom;
 
         if (ReadyToCount == true)
@@ -74,6 +75,7 @@ public class WaitingScene : MonoBehaviourPunCallbacks
 
     void GameWait()
     {
+        Debug.Log("GameWait");
 
         if (_readyPlayerCount == PhotonRoom.room.playersInRoom && PhotonRoom.room.playersInRoom != 0)
         {
@@ -136,7 +138,9 @@ public class WaitingScene : MonoBehaviourPunCallbacks
                     GameStarting = true;
                     readyToPlay = false;
                     ReadyToCount = false;
+                    PhotonNetwork.Destroy(this.gameObject);
                     PhotonNetwork.LoadLevel("Scene1");
+                    PhotonRoom.room.playersInRoom = PhotonRoom.room.deadPlayer;
                 }
         }
     }

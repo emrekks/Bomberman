@@ -44,6 +44,7 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        PhotonRoom.room.playersInRoom--;
         Debug.Log("A player left");
     }
 }

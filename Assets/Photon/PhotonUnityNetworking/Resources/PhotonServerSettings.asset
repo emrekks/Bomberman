@@ -57,6 +57,7 @@ MonoBehaviour:
   - RPC_WaitingPlayer
   - RPC_Spawnpoint
   - RPC_DeadPlayerCount
+  - RPC_InGamePlayerCount
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

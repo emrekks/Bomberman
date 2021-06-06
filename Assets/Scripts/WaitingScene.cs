@@ -132,16 +132,19 @@ public class WaitingScene : MonoBehaviourPunCallbacks
             numbersText.fontSize = Convert.ToInt32(Mathf.Lerp(120f, 150f, 3f));
             numberCount -= 1;
             timer = 0f;
-                if (number <= 0)
+            if (number <= 0)
+            {
+                numbersText.text = "GO";
+                GameStarting = true;
+                readyToPlay = false;
+                ReadyToCount = false;
+                PhotonNetwork.Destroy(this.gameObject);
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    numbersText.text = "GO";
-                    GameStarting = true;
-                    readyToPlay = false;
-                    ReadyToCount = false;
-                    PhotonNetwork.Destroy(this.gameObject);
                     PhotonNetwork.LoadLevel("Scene1");
-                    PhotonRoom.room.playersInRoom = PhotonRoom.room.deadPlayer;
                 }
+                PhotonRoom.room.playersInRoom = PhotonRoom.room.deadPlayer;
+            }
         }
     }
 }

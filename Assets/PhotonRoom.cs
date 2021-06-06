@@ -68,15 +68,13 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     void Update()
     {
-        CheckPlayers();
-        Debug.Log(deadPlayer);
-        if (deadPlayer >= 2 && isGameLoaded)
-        {
-            if (deadPlayer <= 1)
-            {
-                PhotonNetwork.LoadLevel("WaitingRoom");
-            }
-        }
+        //if (playersInGame >= 2 && isGameLoaded)
+        //{
+        //    if (deadPlayer <= 1)
+        //    {
+        //        PhotonNetwork.LoadLevel("WaitingRoom");
+        //    }
+        //}
     }
     public override void OnJoinedRoom()
     {
@@ -128,9 +126,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
             }
             else
             {
-                //playersInGame++;
-                //RPC_CreatePlayer();
                 RPC_PlayerSprite();
+                CheckPlayers();
                 PV.RPC("RPC_LoadedGameScene", RpcTarget.MasterClient);
             }
         }
@@ -153,8 +150,9 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     [PunRPC]
     void RPC_LoadedGameScene()
     {
-        playersInGame++;
-        if(playersInGame == PhotonNetwork.PlayerList.Length)
+        //playersInGame++;
+        PV.RPC("RPC_InGamePlayerCount", RpcTarget.All);
+        if (playersInGame == PhotonNetwork.PlayerList.Length)
         {
             PV.RPC("RPC_CreatePlayer", RpcTarget.All);
             Debug.Log("add one more player");
@@ -214,5 +212,11 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     void RPC_DeadPlayerCount()
     {
         deadPlayer++;
+    }
+
+    [PunRPC]
+    void RPC_InGamePlayerCount()
+    {
+        playersInGame++;
     }
 }

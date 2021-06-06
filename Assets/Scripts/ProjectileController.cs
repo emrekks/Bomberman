@@ -15,6 +15,7 @@ public class ProjectileController : MonoBehaviour
     private PlayerController pc_;
     private Animator anim;
     private bool once = true;
+    private bool playerDead = false;
 
 
     // Start is called before the first frame update
@@ -47,15 +48,14 @@ public class ProjectileController : MonoBehaviour
                         pc_.health--;
                     }
 
-                    else if (pc_.health <= 0)
+                    else if (pc_.health <= 0 && !playerDead)
 
                     {
                         players[i].SetActive(false);
 
-                        for(int s = 0; s < 1; s++)
-                        {
-                            PhotonRoom.room.deadPlayer--;
-                        }
+                        PhotonRoom.room.deadPlayer--;
+
+                        playerDead = true;
                     }
                 }
             }

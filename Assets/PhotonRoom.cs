@@ -29,7 +29,6 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public int numberPlayers;
     public int deadPlayer;
 
-    private bool Player1Spawn, Player2Spawn, Player3Spawn, Player4Spawn = false;
 
 
     private void Awake()
@@ -164,36 +163,32 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     [PunRPC]
     void RPC_CreatePlayer()
     {
-        if (numberPlayers == 1 && !Player1Spawn)
+        if (numberPlayers == 1)
         {
             PhotonNetwork.Instantiate("Player", spawnPoints[0].position, Quaternion.identity, 0);
             Debug.Log("add one more player 1");
             PV.RPC("RPC_DeadPlayerCount", RpcTarget.All);
-            Player1Spawn = true;
         }
 
-        else if (numberPlayers == 2 && !Player2Spawn)
+        else if (numberPlayers == 2)
         {
             PhotonNetwork.Instantiate("Player", spawnPoints[1].position, Quaternion.identity, 0);
             Debug.Log("add one more player 2");
             PV.RPC("RPC_DeadPlayerCount", RpcTarget.All);
-            Player2Spawn = true;
         }
 
-        else if (numberPlayers == 3 && !Player3Spawn)
+        else if (numberPlayers == 3)
         {
             PhotonNetwork.Instantiate("Player", spawnPoints[2].position, Quaternion.identity, 0);
             Debug.Log("add one more player 3");
             PV.RPC("RPC_DeadPlayerCount", RpcTarget.All);
-            Player3Spawn = true;
         }
 
-        else if (numberPlayers == 4 && !Player4Spawn)
+        else if (numberPlayers == 4)
         {
             PhotonNetwork.Instantiate("Player", spawnPoints[3].position, Quaternion.identity, 0);
             Debug.Log("add one more player 4");
             PV.RPC("RPC_DeadPlayerCount", RpcTarget.All);
-            Player4Spawn = true;
         }
 
     }

@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 1000
+  anim: {fileID: 2443113079401944555}
   health: 2
   bomb: {fileID: 424911765435348908, guid: fcf77c10e330345498eca3a8696a1a66, type: 3}
   isReady: 0

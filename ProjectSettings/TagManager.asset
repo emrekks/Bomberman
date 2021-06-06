@@ -9,6 +9,7 @@ TagManager:
   - GameManager
   - WaitingRoom
   - WaitingCharacters
+  - WinThis
   layers:
   - Default
   - TransparentFX

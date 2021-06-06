@@ -2473,6 +2473,8 @@ MonoBehaviour:
   playersInRoom: 0
   myNumberInRoom: 0
   playersInGame: 0
+  numberPlayers: 0
+  deadPlayer: 0
 --- !u!114 &8801204954201044417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2492,7 +2494,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 10
+  sceneViewId: 15
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &8801204954201044418

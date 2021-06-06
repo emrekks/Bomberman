@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -13,10 +14,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private PhotonView _photonView;
     public float movementSpeed = 1000.0f;
 
-    private Animator anim;
-    //public Animator anim;
+    public Animator anim;
     private float MoveSpeed = 5f;
-    [SerializeField] public int health = 2;
+    public int health = 2;
 
     public GameObject bomb;
     private Vector2 movement;
@@ -25,17 +25,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool timerBool = false;
 
     public bool isReady = false;
+    private Text WinnerWho;
 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start()
     {
         _photonView = GetComponent<PhotonView>();
-        anim = GetComponent<Animator>();
 
         if (_photonView.IsMine)
         {
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
 
+
         anim.SetFloat("horizontal", movement.x);
         anim.SetFloat("vertical", movement.y);
 
@@ -81,6 +83,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 timerBool = false;
                 timer = 0f;
             }
+        }
+
+
+        if (PhotonRoom.room.currentScene == 4)
+        {
+            _photonView.RPC("WhoWinner", RpcTarget.All, MainMenu.instance.playerName);
         }
 
     }
@@ -118,4 +126,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         isReady = false;
     }
 
+    [PunRPC]
+    public void WhoWinner(string name)
+    {
+        WinnerWho = GameObject.FindGameObjectWithTag("WinThis").GetComponent<Text>();
+        WinnerWho.text = $"\n{name}: Winner";
+    }
 }

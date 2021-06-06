@@ -29,6 +29,8 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     public int numberPlayers;
     public int deadPlayer;
 
+    private float timer;
+
 
 
     private void Awake()
@@ -69,14 +71,15 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     void Update()
     {
-        //if (playersInGame >= 2 && isGameLoaded)
-        //{
-        //    if (deadPlayer <= 1)
-        //    {
-        //        PhotonNetwork.LoadLevel("WaitingRoom");
-        //    }
-        //}
+        if (playersInGame >= 2 && isGameLoaded)
+        {
+            if(timer < 6)
+            {
+                timer += Time.deltaTime;
+            }
+        }
     }
+
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
@@ -110,6 +113,17 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
         if(WaitingScene.instance._readyPlayerCount == playersInRoom)
         {
             WaitingScene.instance.CountTrigger();
+        }
+    }
+
+    public void WinnerScene()
+    {
+        bool a = false;
+        if (deadPlayer <= 1 && timer > 5f && !a)
+        {
+            PhotonNetwork.AutomaticallySyncScene = false;
+            PV.RPC("RPC_WinnerScene", RpcTarget.All);
+            a = true;
         }
     }
 
@@ -219,5 +233,12 @@ public class PhotonRoom : MonoBehaviourPunCallbacks, IInRoomCallbacks
     void RPC_InGamePlayerCount()
     {
         playersInGame++;
+    }
+
+    [PunRPC]
+    void RPC_WinnerScene()
+    {
+        PhotonNetwork.LoadLevel("Scene2");
+        //PhotonNetwork.AutomaticallySyncScene = true;
     }
 }

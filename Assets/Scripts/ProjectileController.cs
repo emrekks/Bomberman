@@ -54,7 +54,7 @@ public class ProjectileController : MonoBehaviour
                         players[i].SetActive(false);
 
                         PhotonRoom.room.deadPlayer--;
-
+                        PhotonRoom.room.WinnerScene();
                         playerDead = true;
                     }
                 }

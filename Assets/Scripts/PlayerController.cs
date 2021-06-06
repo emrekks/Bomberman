@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public bool isReady = false;
     private Text WinnerWho;
-
+    float Endtimer;
 
     void Awake()
     {
@@ -89,6 +89,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (PhotonRoom.room.currentScene == 4)
         {
             _photonView.RPC("WhoWinner", RpcTarget.All, MainMenu.instance.playerName);
+            Endtimer += Time.deltaTime;
+            if(Endtimer > 10)
+            {
+                _photonView.RPC("RPC_ChangeWinnerScene", RpcTarget.All);
+                //StartCoroutine(ChangeSceneEnding());
+            }
         }
 
     }
@@ -99,6 +105,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
 
+    //IEnumerator ChangeSceneEnding()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    PhotonNetwork.Disconnect();
+    //    PhotonNetwork.LeaveRoom();
+    //    PhotonNetwork.LeaveLobby();
+    //}
 
     void PlacingBomb()
     {
@@ -130,6 +143,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void WhoWinner(string name)
     {
         WinnerWho = GameObject.FindGameObjectWithTag("WinThis").GetComponent<Text>();
-        WinnerWho.text = $"\n{name}: Winner";
+        WinnerWho.text = $"WINNER {name}";
+    }
+
+    [PunRPC]
+    void RPC_ChangeWinnerScene()
+    {
+        Application.Quit();
+        //PhotonNetwork.LoadLevel("MainMenu");
     }
 }

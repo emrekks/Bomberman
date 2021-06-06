@@ -60,6 +60,7 @@ MonoBehaviour:
   - RPC_InGamePlayerCount
   - RPC_WinnerScene
   - WhoWinner
+  - RPC_ChangeWinnerScene
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

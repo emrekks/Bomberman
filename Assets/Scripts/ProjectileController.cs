@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
 
-    private float radius = 1f;
+    private float radius = 1.5f;
 
     private float timer;
 
@@ -16,11 +16,16 @@ public class ProjectileController : MonoBehaviour
     private Animator anim;
     private bool once = true;
     private bool playerDead = false;
+    private BoxCollider2D collider2d;
+    private AudioSource ads;
+    private bool boom = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        ads = GameObject.FindGameObjectWithTag("BombSound").GetComponent<AudioSource>();
+        collider2d = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         players = GameObject.FindGameObjectsWithTag("Player");
         Breakablewall = GameObject.FindGameObjectsWithTag("BreakableWall");
@@ -31,8 +36,12 @@ public class ProjectileController : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        if(timer >= 0.5f)
+        {
+            collider2d.isTrigger = false;
+        }
 
-        if (timer >= 3f && timer <=4)
+        if (timer >= 1.5f && timer <=2)
         {
             for (int i = 0; i < players.Length; i++)
             {
@@ -70,6 +79,13 @@ public class ProjectileController : MonoBehaviour
                 }
             }
             anim.SetBool("Explonation", true);
+            if (!boom)
+            {
+                ads.Play();
+                boom = true;
+            }
+
+
             StartCoroutine(Explosion(gameObject));
         }
     }

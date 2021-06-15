@@ -10,6 +10,7 @@ TagManager:
   - WaitingRoom
   - WaitingCharacters
   - WinThis
+  - BombSound
   layers:
   - Default
   - TransparentFX

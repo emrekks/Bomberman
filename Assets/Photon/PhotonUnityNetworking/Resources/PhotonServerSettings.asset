@@ -34,33 +34,23 @@ MonoBehaviour:
   StartInOfflineMode: 0
   RpcList:
   - ClickRpc
+  - CountNumbers
+  - CountReadyPlayerRpc
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
-  - ShowInChat
-  - Ready
-  - Unready
-  - UnreadyRPC
-  - ReadyRPC
-  - CountReadyPlayerRpc
-  - CountPlayerRpc
-  - Numbers
-  - NumbersACtive
   - NumbersActive
-  - CountNumber
-  - CountNumbers
+  - RespawnSpaceship
+  - RPC_ChangeWinnerScene
   - RPC_CreatePlayer
-  - RPC_LoadedGameScene
-  - ReadyToPlayRPC
-  - RPC_PlayerSprite
-  - RPC_WaitingPlayer
-  - RPC_Spawnpoint
   - RPC_DeadPlayerCount
   - RPC_InGamePlayerCount
+  - RPC_LoadedGameScene
+  - RPC_PlayerSprite
+  - RPC_WaitingPlayer
   - RPC_WinnerScene
+  - ShowInChat
   - WhoWinner
-  - RPC_ChangeWinnerScene
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
